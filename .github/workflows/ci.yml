@@ -80,10 +80,12 @@ jobs:
 
       - name: Run tests
         run: npm run test
+
   coverage:
     needs: [tests]
     name: coverage
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }} # Publish coverage only for push commits, not PRs.
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4

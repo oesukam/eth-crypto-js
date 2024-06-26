@@ -1,100 +1,26 @@
-name: Release
+name: releases
 on:
   push:
     branches:
       - main
 
-permissions:
-  contents: read
-
 jobs:
-  lint:
+  changelog:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v2
+      - name: Conventional Changelog Action
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v3.7.1
         with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install Dependencies
-        run: yarn install
-
-      - name: Run linter
-        run: npm run lint
-
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    needs: [lint]
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install Dependencies
-        run: yarn install
-
-      - name: Run build
-        run: npm run build
-
-  audit-ci:
-    name: Audit CI
-    runs-on: ubuntu-latest
-    needs: [build]
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install Dependencies
-        run: yarn install
-
-      - name: Run Audit-CI to check for vulnerabilities
-        run: npm run audit-ci
-
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    needs: [audit-ci]
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install Dependencies
-        run: yarn install
-
-      - name: Run tests
-        run: npm run test
-
-  release:
-    runs-on: ubuntu-latest
-    needs: [test]
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-      id-token: write
-    steps:
-      - name: Configure npm
-        run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
-
-      - name: Release
-        run: npm run release
+          github-token: ${{ secrets.GH_PA_TOKEN }}
+          version-file: './package.json,./package-lock.json'
+      - name: create release
+        uses: actions/create-release@v1
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PA_TOKEN }}
+        with:
+          tag_name: ${{ steps.changelog.outputs.tag }}
+          release_name: ${{ steps.changelog.outputs.tag }}
+          body: ${{ steps.changelog.outputs.clean_changelog }}

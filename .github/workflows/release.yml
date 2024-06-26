@@ -1,4 +1,4 @@
-name: Release
+name: release
 on:
   push:
     # branches:
@@ -64,28 +64,20 @@ jobs:
       - name: Run tests
         run: npm run test
 
-  coverage:
-    name: coverage
-    needs: [tests]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Coveralls
-        uses: coverallsapp/github-action@v2
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@master
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - uses: paambaati/codeclimate-action@v2.2.4
+      - name: Generate coverage report
+        run: |
+          npm install codeclimate-test-reporter
+          ./node_modules/.bin/codeclimate-test-reporter <your-command-to-generate-coverage>
+
+      - name: Report to CodeClimate
         env:
-          CC_TEST_REPORTER_ID: 7e2fb439e252de707e67ba9fee5b5bb80bbd1e0277655a572d26cb819c7bb169
-        with:
-          coverageCommand: npm run coverage
+          CODECLIMATE_REPO_TOKEN: ${{ secrets.CODECLIMATE_REPO_TOKEN }}
+        run: ./node_modules/.bin/codeclimate-test-reporter after-build --exit-code $?
 
   release:
     name: release
     runs-on: ubuntu-latest
-    needs: [coverage]
+    needs: [tests]
     permissions:
       contents: write
       issues: write

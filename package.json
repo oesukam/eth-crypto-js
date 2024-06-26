@@ -10,7 +10,7 @@
   "homepage": "https://github.com/oesukam/eth-crypto-js#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eth-crypto-js/eth-crypto-js.git"
+    "url": "git+https://github.com/oesukam/eth-crypto-js.git"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
@@ -64,6 +64,12 @@
     "@babel/preset-env": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
     "@eslint/js": "^9.5.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^10.0.6",
+    "@semantic-release/npm": "^12.0.1",
+    "@semantic-release/release-notes-generator": "^14.0.1",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.14.8",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
@@ -81,6 +87,7 @@
     "jest": "^29.7.0",
     "microbundle": "^0.15.1",
     "prettier": "^3.3.2",
+    "semantic-release": "^24.0.0",
     "size-limit": "^8.2.4",
     "ts-jest": "^29.1.5",
     "ts-node": "^10.9.2",

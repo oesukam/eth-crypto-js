@@ -1,4 +1,4 @@
-name: ci
+name: CI
 on:
   pull_request:
   push:
@@ -79,3 +79,13 @@ jobs:
 
       - name: Run tests
         run: npm run test
+  coverage:
+    needs: [tests]
+    name: coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: paambaati/codeclimate-action@v7.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_REPO_TOKEN }}
+        with:
+          coverageCommand: npm run coverage

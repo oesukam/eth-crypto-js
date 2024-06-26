@@ -40,7 +40,7 @@ or
 - [ ] [publicKey.decompress()](https://github.com/oesukam/eth-crypto-js#publickeydecompress)
 - [x] [sign()](https://github.com/oesukam/eth-crypto-js#sign)
 - [ ] [recover()](https://github.com/oesukam/eth-crypto-js#recover)
-- [ ] [recoverPublicKey()](https://github.com/oesukam/eth-crypto-js#recoverpublickey)
+- [x] [recoverPublicKey()](https://github.com/oesukam/eth-crypto-js#recoverpublickey)
 - [x] [encryptWithPublicKey()](https://github.com/oesukam/eth-crypto-js#encryptwithpublickey)
 - [x] [decryptWithPrivateKey()](https://github.com/oesukam/eth-crypto-js#decryptwithprivatekey)
 - [ ] [cipher.stringify()](https://github.com/oesukam/eth-crypto-js#cipherstringify)

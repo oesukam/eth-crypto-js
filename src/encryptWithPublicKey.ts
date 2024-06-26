@@ -1,8 +1,8 @@
 import { encrypt } from 'eccrypto';
-import { Cipher } from './types/Cipher';
+import { Encrypted } from './types/Encrypted';
 import { decompressPublicKey } from './utils/publicKey/decompressPublicKey';
 
-export async function encryptWithPublicKey(publicKey: string, message: string, opts = {}): Promise<Cipher> {
+export async function encryptWithPublicKey(publicKey: string, message: string, opts = {}): Promise<Encrypted> {
   const decompressedPublicKey = decompressPublicKey(publicKey);
 
   const pubString = `04${decompressedPublicKey}`;

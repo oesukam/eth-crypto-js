@@ -8,3 +8,4 @@ coverage
 **/temp
 /.vscode/*
 yarn.lock
+.npmrc

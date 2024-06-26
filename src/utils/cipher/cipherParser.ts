@@ -1,7 +1,7 @@
-import { Cipher } from '../../types/Cipher';
+import { Encrypted } from '../../types/Encrypted';
 import { decompressPublicKey } from '../publicKey/decompressPublicKey';
 
-export function cipherParser(str: string | Cipher): Cipher {
+export function cipherParser(str: string | Encrypted): Encrypted {
   if (typeof str !== 'string') {
     return str;
   }

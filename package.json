@@ -56,7 +56,6 @@
     "build:dev": "microbundle watch",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "audit-ci": "audit-ci --config audit-ci.jsonc",
-    "prepublish": "npm run build",
     "release": "npm publish --access-public"
   },
   "devDependencies": {

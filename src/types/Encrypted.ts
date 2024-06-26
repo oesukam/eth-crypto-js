@@ -1,4 +1,4 @@
-export interface Cipher {
+export interface Encrypted {
   iv: string;
   ephemPublicKey: string;
   mac: string;

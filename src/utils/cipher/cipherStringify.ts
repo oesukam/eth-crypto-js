@@ -1,7 +1,7 @@
 import { compressPublicKey } from '../publicKey/compressPublicKey';
-import { Cipher } from '../../types/Cipher';
+import { Encrypted } from '../../types/Encrypted';
 
-export function cipherStringify(cipher: string | Cipher) {
+export function cipherStringify(cipher: string | Encrypted) {
   if (typeof cipher === 'string') return cipher;
 
   const compressedKey = compressPublicKey(cipher.ephemPublicKey);

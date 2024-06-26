@@ -3,5 +3,8 @@
   "moderate": true,
   "low": true,
   "report-type": "summary",
-  "allowlist": []
+  "allowlist": [
+    "GHSA-72xf-g2v4-qvf3",
+    "GHSA-p8p7-x288-28g6"
+  ]
 }

@@ -1,8 +1,8 @@
 name: Release
 on:
   push:
-    branches:
-      - main
+    # branches:
+    #   - main
 
 permissions:
   contents: read
@@ -64,10 +64,28 @@ jobs:
       - name: Run tests
         run: npm run test
 
+  coverage:
+    name: coverage
+    needs: [tests]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install
+      - uses: paambaati/codeclimate-action@v2.2.4
+        env:
+          CC_TEST_REPORTER_ID: 7e2fb439e252de707e67ba9fee5b5bb80bbd1e0277655a572d26cb819c7bb169
+        with:
+          coverageCommand: npm run coverage
+
   release:
     name: release
     runs-on: ubuntu-latest
-    needs: [tests]
+    needs: [coverage]
     permissions:
       contents: write
       issues: write

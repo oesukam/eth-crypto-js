@@ -5,7 +5,7 @@
 [![npm version](https://badge.fury.io/js/eth-crypto-js.svg)](https://badge.fury.io/js/eth-crypto-js)
 [![Build Status](https://travis-ci.org/oesukam/eth-crypto-js.svg?branch=main)](https://travis-ci.org/oesukam/eth-crypto-js)
 [![Coverage Status](https://coveralls.io/repos/github/oesukam/eth-crypto-js/badge.svg?branch=main)](https://coveralls.io/github/oesukam/eth-crypto-js?branch=main)
-[![Maintainability](https://api.codeclimate.com/v1/badges/f0f25d4e5bc5182f32a5/maintainability)](https://codeclimate.com/github/oesukam/eth-crypto-js/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/ea5b3d3bc3421fd88e1f/maintainability)](https://codeclimate.com/github/oesukam/eth-crypto-js/maintainability)
 [![Known Vulnerabilities](https://snyk.io/test/github/oesukam/eth-crypto-js/badge.svg?targetFile=package.json)](https://snyk.io/test/github/oesukam/eth-crypto-js?targetFile=package.json)
 
 Eth-crypto-js is clone of [https://github.com/pubkey/eth-crypto](eth-crypto) intend to provide cross javasctipt support of cryptographic javascript-functions for ethereum and tutorials on how to use them together with web3js and solidity.

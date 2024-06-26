@@ -1,6 +1,6 @@
 {
   "name": "eth-crypto-js",
-  "version": "0.1.11",
+  "version": "0.1.14",
   "description": "Cryptographic javascript-functions for ethereum and tutorials on how to use them together with web3js and solidity",
   "author": "Olivier Esuka <oesukan@gmail.com> (https://oesukam.me)",
   "license": "MIT",
@@ -10,7 +10,7 @@
   "homepage": "https://github.com/oesukam/eth-crypto-js#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eth-crypto-js/cheke.git"
+    "url": "git+https://github.com/eth-crypto-js/eth-crypto-js.git"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",

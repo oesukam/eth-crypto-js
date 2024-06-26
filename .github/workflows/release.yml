@@ -64,15 +64,23 @@ jobs:
       - name: Run tests
         run: npm run test
 
-      - name: Generate coverage report
-        run: |
-          npm install codeclimate-test-reporter
-          ./node_modules/.bin/codeclimate-test-reporter <your-command-to-generate-coverage>
-
-      - name: Report to CodeClimate
+  coverage:
+    needs: [tests]
+    name: coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: '12'
+      - run: npm install -g yarn
+      - run: yarn install
+      - run: yarn build
+      - uses: paambaati/codeclimate-action@v2.2.4
         env:
-          CODECLIMATE_REPO_TOKEN: ${{ secrets.CODECLIMATE_REPO_TOKEN }}
-        run: ./node_modules/.bin/codeclimate-test-reporter after-build --exit-code $?
+          CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_REPO_TOKEN }}
+        with:
+          coverageCommand: yarn coverage
 
   release:
     name: release

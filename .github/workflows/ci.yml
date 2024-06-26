@@ -93,9 +93,9 @@ jobs:
         with:
           node-version-file: '.nvmrc'
 
-      - run: npm install -g yarn
-      - run: yarn install
-      - run: yarn test
+      - run: npm install
+      - run: npm install
+      - run: npm run test
       - uses: paambaati/codeclimate-action@v8.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_REPO_TOKEN }}

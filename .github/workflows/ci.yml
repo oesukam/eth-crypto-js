@@ -88,12 +88,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm run build
-      - uses: paambaati/codeclimate-action@v4
+      - uses: paambaati/codeclimate-action@v8.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_REPO_TOKEN }}
         with:

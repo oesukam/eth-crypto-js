@@ -43,7 +43,8 @@
     "lint:fix": "npm run lint -- --fix",
     "build": "tsc",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "audit-ci": "audit-ci --config audit-ci.jsonc"
+    "audit-ci": "audit-ci --config audit-ci.jsonc",
+    "release": "npm publish --access-public"
   },
   "devDependencies": {
     "@babel/core": "^7.24.7",

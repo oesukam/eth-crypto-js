@@ -1,21 +1,27 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "esnext",
+    "lib": ["dom", "esnext"],
     "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2017",
     "sourceMap": true,
     "baseUrl": "./src",
     "outDir": "./dist",
     "incremental": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowJs": true,
+    "moduleResolution": "node",
   },
   "include": [
     "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist", 
+    "test",
+    "**/*spec.ts"
   ]
 }

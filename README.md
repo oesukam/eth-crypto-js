@@ -2,8 +2,8 @@
 
 ---
 
-[![npm version](https://badge.fury.io/js/eth-crypto-js.svg)](https://badge.fury.io/js/eth-crypto-js)
 <!-- [![Build Status](https://travis-ci.org/oesukam/eth-crypto-js.svg?branch=main)](https://travis-ci.org/oesukam/eth-crypto-js) -->
+[![npm version](https://badge.fury.io/js/eth-crypto-js.svg)](https://badge.fury.io/js/eth-crypto-js)
 [![codecov](https://codecov.io/github/oesukam/eth-crypto-js/branch/main/graph/badge.svg?token=6J2DUE6K1A)](https://codecov.io/github/oesukam/eth-crypto-js)
 [![Maintainability](https://api.codeclimate.com/v1/badges/ea5b3d3bc3421fd88e1f/maintainability)](https://codeclimate.com/github/oesukam/eth-crypto-js/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/ea5b3d3bc3421fd88e1f/test_coverage)](https://codeclimate.com/github/oesukam/eth-crypto-js/test_coverage)

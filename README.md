@@ -1,5 +1,4 @@
 # Eth-crypto-js
-
 ---
 
 [![npm version](https://badge.fury.io/js/eth-crypto-js.svg)](https://badge.fury.io/js/eth-crypto-js)

@@ -3,6 +3,7 @@ module.exports = {
   parserOptions: {
     project: 'tsconfig.json',
     sourceType: 'module',
+    ecmaVersion: 2020,
   },
   extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended', 'prettier'],
   plugins: ['@typescript-eslint/eslint-plugin', 'prettier'],
@@ -17,4 +18,13 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
   },
+  overrides: [
+    {
+      files: ['rollup.config.js', "**/*spec.ts", 'node_modules/**', 'dist/**'],
+      parser: 'espree',
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off',
+      },
+    },
+  ],
 };

@@ -20,7 +20,7 @@ jobs:
       - name: Run tests 🧪
         run: npm run test
       - name: Run build 🏗
-        run: npm run build
+        run: npm run rollup:build
       - name: Publish package on NPM 📦
         run: npm publish
         env:

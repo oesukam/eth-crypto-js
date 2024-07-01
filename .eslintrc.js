@@ -18,13 +18,12 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
   },
-  exclude: ['node_modules/**', 'dist/**'],
   overrides: [
     {
-      files: ['rollup.config.js'],
-      parser: 'espree', // Use the default JS parser for this file
+      files: ['rollup.config.js', "**/*spec.ts", 'node_modules/**', 'dist/**'],
+      parser: 'espree',
       rules: {
-        '@typescript-eslint/no-var-requires': 'off', // Disable TS specific rules for this file
+        '@typescript-eslint/no-var-requires': 'off',
       },
     },
   ],

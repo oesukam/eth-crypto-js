@@ -4,11 +4,10 @@ const MIN_ENTROPY_SIZE = 128;
 
 export function createPrivateKey(entropy?: Buffer): string {
   if (entropy) {
-    if (!Buffer.isBuffer(entropy)) {
-      throw new Error('WallabyCrypto.createPrivateKey(): given entropy is no Buffer');
-    }
     if (Buffer.byteLength(entropy, 'utf8') < MIN_ENTROPY_SIZE) {
-      throw new Error(`WallabyCrypto.createPrivateKey(): Entropy-size must be at least ${MIN_ENTROPY_SIZE}`);
+      throw new Error(
+        `WallabyCrypto.createPrivateKey(): Entropy-size must be at least ${MIN_ENTROPY_SIZE} but was ${Buffer.byteLength(entropy, 'utf8')}`,
+      );
     }
 
     const outerHex = keccak256(entropy);

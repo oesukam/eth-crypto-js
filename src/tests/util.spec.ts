@@ -21,7 +21,8 @@ describe('util functions', () => {
     });
 
     it('should throw an error for non-string inputs', () => {
-      expect(() => stripHexPrefix(123 as any)).toThrow("[stripHexPrefix] input must be type 'string', received number");
+      // @ts-ignore
+      expect(() => stripHexPrefix(123)).toThrow("[stripHexPrefix] input must be type 'string', received number");
     });
   });
 
@@ -39,7 +40,8 @@ describe('util functions', () => {
     });
 
     it('should return false for non-string inputs', () => {
-      expect(isHexString(123 as any)).toBe(false);
+      // @ts-ignore
+      expect(isHexString(123)).toBe(false);
     });
 
     it('should respect length parameter if provided', () => {

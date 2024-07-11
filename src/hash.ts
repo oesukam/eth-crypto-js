@@ -21,5 +21,3 @@ export const keccak256 = (params: Param[] | string): string => {
 
   return solidityPackedKeccak256(types, values);
 };
-
-export const SIGN_PREFIX = '\x19Ethereum Signed Message:\n32';

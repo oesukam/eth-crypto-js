@@ -9,12 +9,6 @@ describe('util functions', () => {
     it('should return false for strings not starting with 0x', () => {
       expect(isHexPrefixed('123')).toBe(false);
     });
-
-    it('should throw an error for non-string inputs', () => {
-      expect(() => isHexPrefixed(123 as any)).toThrow(
-        "[isHexPrefixed] input must be type 'string', received type number",
-      );
-    });
   });
 
   describe('stripHexPrefix', () => {

@@ -21,7 +21,7 @@ describe('util functions', () => {
     });
 
     it('should throw an error for non-string inputs', () => {
-      // @ts-expect-error
+      // @ts-expect-error testing incorrect type
       expect(() => stripHexPrefix(123)).toThrow("[stripHexPrefix] input must be type 'string', received number");
     });
   });
@@ -40,7 +40,7 @@ describe('util functions', () => {
     });
 
     it('should return false for non-string inputs', () => {
-      // @ts-expect-error
+      // @ts-expect-error testing incorrect type
       expect(isHexString(123)).toBe(false);
     });
 

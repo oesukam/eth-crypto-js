@@ -1,14 +1,15 @@
-import { privateToPublic, toBuffer } from 'ethereumjs-util';
-import { addLeading0x } from './utils/addLeading0x';
+import { SigningKey } from 'ethers';
+import { addLeading0x, stripHexPrefix } from './util';
 
 /**
- * Generate publicKey from the privateKey with leading 0x.
+ * Generate publicKey from the privateKey.
+ * This creates the uncompressed publicKey,
+ * where 04 has stripped from left
  * @returns {string}
  */
-export function publicKeyByPrivateKey(privateKey: string): string {
-  const privateKeyWithLeading0x = addLeading0x(privateKey);
-
-  const publicKeyBuffer = privateToPublic(toBuffer(privateKeyWithLeading0x));
-
-  return publicKeyBuffer.toString('hex');
-}
+export const publicKeyByPrivateKey = (privateKey: string) => {
+  const key = addLeading0x(privateKey);
+  const sign = new SigningKey(key);
+  const publicKey = SigningKey.computePublicKey(sign.publicKey, false);
+  return stripHexPrefix(publicKey).slice(2);
+};

@@ -1,19 +1,20 @@
-import { encrypt } from 'eccrypto';
-import { Encrypted } from './types/Encrypted';
-import { decompressPublicKey } from './utils/publicKey/decompressPublicKey';
+import { decompress } from './decompress';
+import { encrypt } from './encryption-utils';
+import { bytesToHex } from 'ethereum-cryptography/utils';
 
-export async function encryptWithPublicKey(publicKey: string, message: string, opts = {}): Promise<Encrypted> {
-  const decompressedPublicKey = decompressPublicKey(publicKey);
+export const encryptWithPublicKey = async (publicKey: string, message: string) => {
+  // ensure its an uncompressed publicKey
+  const decompressedKey = decompress(publicKey);
 
-  const pubString = `04${decompressedPublicKey}`;
+  // re-add the compression-flag
+  const pubString = '04' + decompressedKey;
 
-  return encrypt(Buffer.from(pubString, 'hex'), Buffer.from(message), opts).then((encryptedBuffers) => {
-    const encrypted = {
-      iv: encryptedBuffers.iv.toString('hex'),
-      ephemPublicKey: encryptedBuffers.ephemPublicKey.toString('hex'),
-      ciphertext: encryptedBuffers.ciphertext.toString('hex'),
-      mac: encryptedBuffers.mac.toString('hex'),
-    };
-    return encrypted;
-  });
-}
+  const result = await encrypt(pubString, message);
+  const encrypted = {
+    iv: bytesToHex(result.iv),
+    ephemPublicKey: bytesToHex(result.ephemPublicKey),
+    ciphertext: result.ciphertext,
+    mac: bytesToHex(result.mac),
+  };
+  return encrypted;
+};

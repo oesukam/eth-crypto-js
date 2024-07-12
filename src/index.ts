@@ -1,4 +1,4 @@
-import { createIdentity, createIdentityAsync } from './createIdentity';
+import { createIdentity } from './createIdentity';
 import { sign } from './sign';
 import { encryptWithPublicKey } from './encryptWithPublicKey';
 import { decryptWithPrivateKey } from './decryptWithPrivateKey';
@@ -13,7 +13,6 @@ const hash = {
 
 export {
   createIdentity,
-  createIdentityAsync,
   decryptWithPrivateKey,
   encryptWithPublicKey,
   hash,
@@ -26,7 +25,6 @@ export {
 
 export default {
   createIdentity,
-  createIdentityAsync,
   decryptWithPrivateKey,
   encryptWithPublicKey,
   hash,

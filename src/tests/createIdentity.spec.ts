@@ -1,4 +1,4 @@
-import { createIdentity, createIdentityAsync, createPrivateKey } from '../createIdentity';
+import { createIdentity, createPrivateKey } from '../createIdentity';
 
 describe('createIdentity tests', () => {
   it('should return an object with privateKey and publicKey', async () => {
@@ -20,25 +20,5 @@ describe('createIdentity tests', () => {
     expect(identity.privateKey.length).toBe(66); // Length of keccak256 hash in hex plus '0x' prefix
     // This length check for publicKey might need adjustment based on actual expected length
     expect(identity.publicKey.length).toBeGreaterThanOrEqual(64); // Minimum length check for publicKey
-  });
-});
-
-describe('createIdentity comparison tests', () => {
-  it('should return an object with privateKey and publicKey using async API', async () => {
-    const identity = await createIdentityAsync();
-    expect(identity).toHaveProperty('privateKey');
-    expect(identity).toHaveProperty('publicKey');
-    expect(identity.privateKey).toMatch(/^0x[0-9a-fA-F]+$/);
-    expect(identity.privateKey.length).toBe(66);
-    expect(identity.publicKey.length).toBeGreaterThanOrEqual(64);
-  });
-
-  it('should return an object with privateKey and publicKey using sync API', () => {
-    const identity = createIdentity();
-    expect(identity).toHaveProperty('privateKey');
-    expect(identity).toHaveProperty('publicKey');
-    expect(identity.privateKey).toMatch(/^0x[0-9a-fA-F]+$/);
-    expect(identity.privateKey.length).toBe(66);
-    expect(identity.publicKey.length).toBeGreaterThanOrEqual(64);
   });
 });

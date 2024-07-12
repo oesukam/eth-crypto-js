@@ -36,13 +36,5 @@ export default defineConfig({
     },
   ],
   external: Object.keys(pkg.dependencies),
-  plugins: [
-    commonjs(),
-    json(),
-    nodeResolve({
-      preferBuiltins: false,
-    }),
-    isProduction && terser(),
-    typescript({ tsconfig: './tsconfig.json' }),
-  ],
+  plugins: [commonjs(), json(), nodeResolve(), isProduction && terser(), typescript({ tsconfig: './tsconfig.json' })],
 });

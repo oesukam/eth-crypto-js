@@ -2,7 +2,7 @@ import { solidityPackedKeccak256 } from 'ethers';
 
 export interface Param {
   type: string;
-  value: string;
+  value: string | number;
 }
 
 export const keccak256 = (params: Param[] | string): string => {
@@ -15,7 +15,7 @@ export const keccak256 = (params: Param[] | string): string => {
   } else {
     params.forEach((p: Param) => {
       types.push(p.type);
-      values.push(p.value);
+      values.push(`${p.value}`);
     });
   }
 

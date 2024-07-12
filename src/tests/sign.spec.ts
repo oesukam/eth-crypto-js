@@ -11,4 +11,9 @@ describe('sign function', () => {
     const signature = sign(PRIVATE_KEY, HASH);
     expect(signature).toEqual(OUTPUT);
   });
+
+  it('should throw an error for invalid private key', () => {
+    const invalidHash = 'invalid';
+    expect(() => sign(invalidHash, HASH)).toThrow();
+  });
 });

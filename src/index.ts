@@ -23,3 +23,15 @@ export {
   sign,
   Encrypted,
 };
+
+export default {
+  createIdentity,
+  createIdentityAsync,
+  decryptWithPrivateKey,
+  encryptWithPublicKey,
+  hash,
+  keccak256,
+  publicKeyByPrivateKey,
+  recoverPublicKey,
+  sign,
+};

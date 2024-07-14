@@ -8,7 +8,7 @@ on:
     types: [published]
 
 jobs:
-  validate-branch-commit:
+  validate_branch_commit:
     name: Validate Branch and Commit Message
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -33,7 +33,7 @@ jobs:
   lint:
     name: lint
     runs-on: ubuntu-latest
-    needs: [validate-branch-commit]
+    needs: [validate_branch_commit]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -49,8 +49,8 @@ jobs:
       - name: Run linter
         run: npm run lint
 
-  audit-ci:
-    name: audit-ci
+  audit_ci:
+    name: audit_ci
     runs-on: ubuntu-latest
     needs: [lint]
     steps:
@@ -71,7 +71,7 @@ jobs:
   build:
     name: build
     runs-on: ubuntu-latest
-    needs: [audit-ci]
+    needs: [audit_ci]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -117,8 +117,8 @@ jobs:
         with:
           debug: true
 
-  update-release-draft:
-    name: release-drafter
+  release_draft:
+    name: release_drafter
     runs-on: ubuntu-latest
     needs: [tests]
 
@@ -137,3 +137,23 @@ jobs:
           config-name: release-drafter-config.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PA_TOKEN }}
+
+  create_release:
+    needs: [release_draft]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' # Ensure this only runs on main branch
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PA_TOKEN }}
+        with:
+          tag_name: ${{ steps.release_drafter.outputs.version }} # Ensure the tag name is set correctly
+          release_name: ${{ steps.release_drafter.outputs.version }}
+          draft: false
+          prerelease: false

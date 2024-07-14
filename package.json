@@ -70,12 +70,12 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@types/crypto-js": "^4.2.2",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.14.8",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "audit-ci": "^7.0.1",
     "babel-jest": "^29.7.0",
-    "coveralls": "^3.1.1",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard-with-typescript": "^43.0.1",
@@ -88,18 +88,14 @@
     "microbundle": "^0.15.1",
     "prettier": "^3.3.2",
     "rollup": "^4.18.0",
-    "rollup-plugin-node-builtins": "^2.0.0",
-    "rollup-plugin-node-globals": "^1.4.0",
-    "rollup-plugin-polyfill-node": "^0.13.0",
     "size-limit": "^8.2.4",
     "ts-jest": "^29.1.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "eccrypto": "^1.1.6",
-    "ethereumjs-util": "^7.1.5",
-    "ethers": "^6.13.1",
-    "secp256k1": "^5.0.0"
+    "crypto-js": "^4.2.0",
+    "ethereum-cryptography": "^2.2.1",
+    "ethers": "^6.13.1"
   }
 }

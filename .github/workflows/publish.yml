@@ -1,7 +1,7 @@
 name: publish to npm
 on:
   release:
-    types: [created]
+    types: [published]
 
 jobs:
   build:
@@ -20,7 +20,7 @@ jobs:
       - name: Run tests 🧪
         run: npm run test
       - name: Run build 🏗
-        run: npm run rollup:build
+        run: npm run build
       - name: Publish package on NPM 📦
         run: npm publish
         env:

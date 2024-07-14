@@ -1,0 +1,78 @@
+name-template: '$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+categories:
+  - title: '🚀 Features'
+    labels:
+      - 'enhancement'
+      - 'feature'
+      - 'improvement'
+  - title: '🔒 Security'
+    label: 'security'
+  - title: '🐛 Patches'
+    labels:
+      - 'bug'
+      - 'bugfix'
+      - 'fix'
+  - title: '🛠 Maintenance'
+    labels:
+      - 'chore'
+      - 'ci'
+      - 'docs'
+      - 'refactor'
+      - 'perf'
+
+change-template: '- $TITLE (#$NUMBER) - @$AUTHOR'
+change-title-escapes: '\<*_&'
+sort-by: title
+sort-direction: ascending
+autolabeler:
+  - label: 'chore'
+    title:
+      - '/^(chore|build)(.?|\\(.*\\)):/i'
+  - label: 'feature'
+    title:
+      - '/^feat(.?|\\(.*\\)):/i'
+  - label: 'hotfix'
+    title:
+      - '/^hotfix(.?|\\(.*\\)):/i'
+  - label: 'fix'
+    title:
+      - '/^fix(.?|\\(.*\\)):/i'
+  - label: 'ci'
+    title:
+      - '/^ci(.?|\\(.*\\)):/i'
+  - label: 'docs'
+    title:
+      - '/^docs(.?|\\(.*\\)):/i'
+  - label: 'perf'
+    title:
+      - '/^perf(.?|\\(.*\\)):/i'
+  - label: 'refactor'
+    title:
+      - '/^refactor(.?|\\(.*\\)):/i'
+  - label: 'style'
+    title:
+      - '/^style(.?|\\(.*\\)):/i'
+  - label: 'test'
+    title:
+      - '/^test(.?|\\(.*\\)):/i'
+  - label: 'skip-changelog'
+    title:
+      - '/^Auto\-merge/'
+
+exclude-labels:
+  - 'skip-changelog'
+
+version-resolver:
+  default: patch
+
+commitish: main
+filter-by-commitish: true
+
+header: |
+  # eth-crypto-js v.$RESOLVED_VERSION
+
+template: |
+  # Changelog
+
+  $CHANGES

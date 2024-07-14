@@ -47,6 +47,7 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
+    "build": "microbundle",
     "rollup:build": "rollup --config --sourcemap --validate --bundleConfigAsCjs",
     "rimraf": "rimraf dist",
     "test": "jest",
@@ -54,7 +55,6 @@
     "lint": "eslint \"src/**/*.{ts,js,json}\"",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint:fix": "npm run lint -- --fix",
-    "build": "npm run rimraf && microbundle",
     "build:dev": "microbundle watch",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "audit-ci": "audit-ci --config audit-ci.jsonc",

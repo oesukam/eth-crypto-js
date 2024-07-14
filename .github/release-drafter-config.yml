@@ -66,11 +66,11 @@ exclude-labels:
 version-resolver:
   default: patch
 
-commitish: master
+commitish: main
 filter-by-commitish: true
 
 header: |
-  # wallaby-cash v.$RESOLVED_VERSION
+  # eth-crypto-js v.$RESOLVED_VERSION
 
 template: |
   # Changelog

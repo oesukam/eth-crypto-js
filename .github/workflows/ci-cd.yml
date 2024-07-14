@@ -3,9 +3,32 @@ on:
   push:
 
 jobs:
+  validate-branch-commit:
+    name: Validate Branch and Commit Message
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Validate branch name
+        run: bash .husky/scripts/validate-branch-names.sh
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
+
   lint:
     name: lint
     runs-on: ubuntu-latest
+    needs: [validate-branch-commit]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4

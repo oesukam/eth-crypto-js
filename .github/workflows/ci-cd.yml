@@ -3,7 +3,7 @@ name: ci - cd
 on:
   push:
   pull_request:
-    types: [opened, reopened, closed]
+    types: [reopened, closed]
   release:
     types: [published]
 

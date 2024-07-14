@@ -151,7 +151,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PA_TOKEN }}
         with:
-          tag_name: ${{ steps.release_drafter.outputs.version }} # Ensure the tag name is set correctly
-          release_name: ${{ steps.release_drafter.outputs.version }}
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false

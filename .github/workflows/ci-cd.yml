@@ -119,6 +119,7 @@ jobs:
     name: release_drafter
     runs-on: ubuntu-latest
     needs: [tests]
+    if: github.ref == 'refs/heads/develop' # Ensure this only runs on develop branch
 
     steps:
       - name: Checkout repository

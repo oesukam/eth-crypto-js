@@ -117,7 +117,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     needs: [tests]
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }} # Publish coverage only for push commits, not PRs.
+    if: ${{ github.event_name == 'push' }} # Publish coverage only for push commits, not PRs.
     steps:
       - uses: actions/checkout@v4
       - name: Conventional Changelog Action
@@ -125,13 +125,15 @@ jobs:
         uses: TriPSs/conventional-changelog-action@v5
         with:
           github-token: ${{ secrets.GH_PA_TOKEN }}
+          pre-release: ${{ github.ref != 'refs/heads/main' }}
           version-file: './package.json,./package-lock.json'
-          release-count: '0'
-      - name: create release
+          release-count: 0
+
+      - name: Create Release
         uses: actions/create-release@v1
-        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        if: ${{ steps.changelog.outputs.skipped == 'false'  && github.ref == 'refs/heads/main' }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PA_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.github_token }}
         with:
           tag_name: ${{ steps.changelog.outputs.tag }}
           release_name: ${{ steps.changelog.outputs.tag }}

@@ -94,6 +94,7 @@ jobs:
     needs: [tests]
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }} # Publish coverage only for push commits, not PRs.
     steps:
+      - uses: actions/checkout@v4
       - name: Conventional Changelog Action
         id: changelog
         uses: TriPSs/conventional-changelog-action@v5

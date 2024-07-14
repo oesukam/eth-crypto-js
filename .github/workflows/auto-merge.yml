@@ -1,6 +1,7 @@
 name: Auto-Merge and Sync Branches
 
 on:
+  workflow_dispatch: # Enable manual trigger
   push:
     branches:
       - main # Change this to your primary branch name if different

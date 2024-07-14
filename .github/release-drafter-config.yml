@@ -1,24 +1,25 @@
 name-template: '$RESOLVED_VERSION'
 tag-template: 'v$RESOLVED_VERSION'
 categories:
-  - title: 'Features'
+  - title: '🚀 Features'
     labels:
       - 'enhancement'
       - 'feature'
       - 'improvement'
-  - title: 'Security'
+  - title: '🔒 Security'
     label: 'security'
-  - title: 'Patches'
+  - title: '🐛 Patches'
     labels:
       - 'bug'
       - 'bugfix'
       - 'fix'
-  - title: 'Maintenance'
+  - title: '🛠 Maintenance'
     labels:
       - 'chore'
       - 'ci'
       - 'docs'
       - 'refactor'
+      - 'perf'
 
 change-template: '- $TITLE (#$NUMBER) - @$AUTHOR'
 change-title-escapes: '\<*_&'

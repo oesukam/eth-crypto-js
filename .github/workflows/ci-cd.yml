@@ -134,6 +134,6 @@ jobs:
       - name: Release Drafter
         uses: release-drafter/release-drafter@v5
         with:
-          config-name: release-drafter.yml
+          config-name: release-drafter-config.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PA_TOKEN }}

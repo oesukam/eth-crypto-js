@@ -8,7 +8,7 @@ export const DEFAULT_ENTROPY_BYTES = 32;
  * @param { Uint8Array } entropy - optional entropy to create the private key
  * @returns a new private key
  */
-export const createPrivateKey = (entropy?: Uint8Array)  => {
+export const createPrivateKey = (entropy?: Uint8Array) => {
   if (entropy) {
     if (!(entropy instanceof Uint8Array) || entropy.length < DEFAULT_ENTROPY_BYTES) {
       throw new Error(`entropy must be a Uint8Array of at least ${DEFAULT_ENTROPY_BYTES} bytes`);

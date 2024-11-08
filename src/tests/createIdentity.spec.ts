@@ -23,15 +23,15 @@ describe('createIdentity tests', () => {
   });
 
   it('should throw an error if entropy is not a Uint8Array', () => {
-    expect(() => createPrivateKey('invalid entropy' as any)).toThrow(
-      `entropy must be a Uint8Array of at least ${DEFAULT_ENTROPY_BYTES} bytes`
+    expect(() => createPrivateKey(new Uint8Array([0]))).toThrow(
+      `entropy must be a Uint8Array of at least ${DEFAULT_ENTROPY_BYTES} bytes`,
     );
   });
 
   it('should throw an error if entropy length is less than DEFAULT_ENTROPY_BYTES', () => {
     const shortEntropy = new Uint8Array(DEFAULT_ENTROPY_BYTES - 1);
     expect(() => createPrivateKey(shortEntropy)).toThrow(
-      `entropy must be a Uint8Array of at least ${DEFAULT_ENTROPY_BYTES} bytes`
+      `entropy must be a Uint8Array of at least ${DEFAULT_ENTROPY_BYTES} bytes`,
     );
   });
 

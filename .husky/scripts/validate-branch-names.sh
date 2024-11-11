@@ -7,7 +7,7 @@ BRANCH_NAME=${BRANCH_NAME:-$(git rev-parse --abbrev-ref HEAD)}
 echo "Branch name: $BRANCH_NAME"
 
 # Check if branch name starts with a valid prefix
-if [[ ! $BRANCH_NAME =~ ^(main|develop|feat/|fix/|ci/|refactor/|docs/|test/|chore/|revert/|perf/).*$ ]]; then
+if [[ ! $BRANCH_NAME =~ ^(HEAD|main|develop|feat/|fix/|ci/|refactor/|docs/|test/|chore/|revert/|perf/).*$ ]]; then
     echo "Invalid branch name: Branch name should start with a valid prefix (feat/, fix/, ci/, refactor/, docs/, test/, chore/, revert/, perf)."
     exit 1
 fi

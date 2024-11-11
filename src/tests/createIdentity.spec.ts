@@ -1,4 +1,4 @@
-import { createIdentity, createPrivateKey } from '../createIdentity';
+import { createIdentity, createPrivateKey, DEFAULT_ENTROPY_BYTES } from '../createIdentity';
 
 describe('createIdentity tests', () => {
   it('should return an object with privateKey and publicKey', async () => {
@@ -20,5 +20,37 @@ describe('createIdentity tests', () => {
     expect(identity.privateKey.length).toBe(66); // Length of keccak256 hash in hex plus '0x' prefix
     // This length check for publicKey might need adjustment based on actual expected length
     expect(identity.publicKey.length).toBeGreaterThanOrEqual(64); // Minimum length check for publicKey
+  });
+
+  it('should throw an error if entropy is not a Uint8Array', () => {
+    expect(() => createPrivateKey(new Uint8Array([0]))).toThrow(
+      `entropy must be a Uint8Array of at least ${DEFAULT_ENTROPY_BYTES} bytes`,
+    );
+  });
+
+  it('should throw an error if entropy length is less than DEFAULT_ENTROPY_BYTES', () => {
+    const shortEntropy = new Uint8Array(DEFAULT_ENTROPY_BYTES - 1);
+    expect(() => createPrivateKey(shortEntropy)).toThrow(
+      `entropy must be a Uint8Array of at least ${DEFAULT_ENTROPY_BYTES} bytes`,
+    );
+  });
+
+  it('should create a private key from valid entropy', () => {
+    const validEntropy = new Uint8Array(DEFAULT_ENTROPY_BYTES);
+    const privateKey = createPrivateKey(validEntropy);
+
+    expect(privateKey).toMatch(/^0x[0-9a-fA-F]+$/);
+    expect(privateKey.length).toBe(66);
+  });
+
+  it('should create an identity from valid entropy', () => {
+    const validEntropy = new Uint8Array(DEFAULT_ENTROPY_BYTES);
+    const identity = createIdentity(validEntropy);
+
+    expect(identity).toHaveProperty('privateKey');
+    expect(identity).toHaveProperty('publicKey');
+
+    expect(identity.privateKey.length).toBe(66);
+    expect(identity.publicKey.length).toBeGreaterThanOrEqual(64);
   });
 });

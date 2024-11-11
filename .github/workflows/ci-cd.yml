@@ -98,7 +98,7 @@ jobs:
           node-version-file: '.nvmrc'
 
       - name: Install Dependencies
-        run: npm install
+        run: yarn install
 
       - name: Run tests
         run: npm run test

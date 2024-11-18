@@ -37,7 +37,7 @@ export const createIdentity = (entropy?: Uint8Array) => {
   const walletPublicKey = publicKeyByPrivateKey(privateKey);
   const identity = {
     privateKey: privateKey,
-    publicKey: stripHexPrefix(walletPublicKey).slice(2),
+    publicKey: stripHexPrefix(walletPublicKey),
   };
   return identity;
 };

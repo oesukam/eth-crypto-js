@@ -36,7 +36,7 @@ describe('createIdentity tests', () => {
   });
 
   it('should create a private key from valid entropy', () => {
-    const validEntropy = new Uint8Array(DEFAULT_ENTROPY_BYTES);
+    const validEntropy = crypto.getRandomValues(new Uint8Array(DEFAULT_ENTROPY_BYTES));
     const privateKey = createPrivateKey(validEntropy);
 
     expect(privateKey).toMatch(/^0x[0-9a-fA-F]+$/);
@@ -44,7 +44,7 @@ describe('createIdentity tests', () => {
   });
 
   it('should create an identity from valid entropy', () => {
-    const validEntropy = new Uint8Array(DEFAULT_ENTROPY_BYTES);
+    const validEntropy = crypto.getRandomValues(new Uint8Array(DEFAULT_ENTROPY_BYTES));
     const identity = createIdentity(validEntropy);
 
     expect(identity).toHaveProperty('privateKey');

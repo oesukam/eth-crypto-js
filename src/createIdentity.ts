@@ -1,4 +1,6 @@
 import { SigningKey, concat, keccak256, randomBytes } from 'ethers';
+import { bytesToHex } from 'ethereum-cryptography/utils';
+
 import { addLeading0x, stripHexPrefix } from './util';
 
 export const DEFAULT_ENTROPY_BYTES = 32;
@@ -45,7 +47,7 @@ export const createPrivateKey = (entropy?: Uint8Array) => {
     const innerHex = keccak256(concat([randomBytes(32), randomBytes(32)]));
     const middleHex = concat([concat([randomBytes(32), innerHex]), randomBytes(32)]);
     const outerHex = keccak256(middleHex);
-    return outerHex;
+    return addLeading0x(bytesToHex(outerHex));
   }
 };
 
@@ -65,7 +67,3 @@ export const createIdentity = (entropy?: Uint8Array) => {
   };
   return identity;
 };
-function bytesToHex(outerHex: any): string {
-  throw new Error('Function not implemented.');
-}
-

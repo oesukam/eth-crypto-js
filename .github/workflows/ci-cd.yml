@@ -62,13 +62,6 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Upload coverage reports to codeclimate
-        uses: paambaati/codeclimate-action@v9
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_REPO_TOKEN }}
-        with:
-          debug: true
-
   release_draft:
     name: release_drafter
     runs-on: ubuntu-latest

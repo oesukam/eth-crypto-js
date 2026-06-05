@@ -20,7 +20,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['rollup.config.js', "**/*spec.ts", 'node_modules/**', 'dist/**'],
+      files: ['rollup.config.mjs', "**/*spec.ts", 'node_modules/**', 'dist/**'],
       parser: 'espree',
       rules: {
         '@typescript-eslint/no-var-requires': 'off',

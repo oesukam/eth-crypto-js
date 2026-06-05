@@ -2,27 +2,20 @@ name: ci - cd
 
 on:
   push:
-  release:
-    types: [published]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   validate_branch_commit:
     name: Validate Branch and Commit Message
     runs-on: ubuntu-latest
-    timeout-minutes: 60
-
+    timeout-minutes: 10
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: '.nvmrc'
-
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup
       - name: Validate branch name
         run: bash .husky/scripts/validate-branch-names.sh
         env:
@@ -33,126 +26,52 @@ jobs:
     runs-on: ubuntu-latest
     needs: [validate_branch_commit]
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v6
-
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: '.nvmrc'
-
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Run linter
-        run: npm run lint
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup
+      - run: npm run lint
 
   audit_ci:
     name: audit_ci
     runs-on: ubuntu-latest
-    needs: [lint]
+    needs: [validate_branch_commit]
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v6
-
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: '.nvmrc'
-
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Run Audit-CI to check for vulnerabilities
-        run: npm run audit-ci
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup
+      - run: npm run audit-ci
 
   build:
     name: build
     runs-on: ubuntu-latest
-    needs: [audit_ci]
+    needs: [validate_branch_commit]
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v6
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup
+      - run: npm run build
 
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: '.nvmrc'
-
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Run build
-        run: npm run build
   tests:
     name: tests
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: [validate_branch_commit]
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v6
-
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: '.nvmrc'
-
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Run tests
-        run: npm run test
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup
+      - run: npm run test
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v6
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Upload coverage reports to codeclimate
-        uses: paambaati/codeclimate-action@v9
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_REPO_TOKEN }}
-        with:
-          debug: true
-
   release_draft:
     name: release_drafter
     runs-on: ubuntu-latest
-    needs: [tests]
-    if: github.ref == 'refs/heads/develop' # Ensure this only runs on develop branch
-
+    needs: [lint, audit_ci, build, tests]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: '.nvmrc'
-
+      - uses: actions/checkout@v6
       - name: Release Drafter
         uses: release-drafter/release-drafter@v6
         with:
           config-name: release-drafter-config.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PA_TOKEN }}
-
-  create_release:
-    needs: [release_draft]
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' # Ensure this only runs on main branch
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Create Release
-        id: create_release
-        uses: softprops/action-gh-release@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PA_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false

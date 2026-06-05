@@ -1,0 +1,14 @@
+name: Setup
+description: Install Node from .nvmrc and yarn dependencies with cache
+runs:
+  using: composite
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v6
+      with:
+        node-version-file: '.nvmrc'
+        cache: yarn
+
+    - name: Install Dependencies
+      shell: bash
+      run: yarn install --frozen-lockfile

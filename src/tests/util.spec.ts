@@ -1,4 +1,4 @@
-import { isHexPrefixed, stripHexPrefix, isHexString, addLeading0x } from '../util';
+import { isHexPrefixed, stripHexPrefix, isHexString, addLeading0x, utf8ToBytes } from '../util';
 
 describe('util functions', () => {
   describe('isHexPrefixed', () => {
@@ -63,5 +63,30 @@ describe('util functions', () => {
     it('should not add 0x to a string if already present', () => {
       expect(addLeading0x('0x123')).toBe('0x123');
     });
+  });
+});
+
+describe('utf8ToBytes tests', () => {
+  it('should convert a simple string to bytes', () => {
+    const str = 'abc';
+    const expected = new Uint8Array([97, 98, 99]);
+    expect(utf8ToBytes(str)).toEqual(expected);
+  });
+
+  it('should convert a string with surrogate pairs to bytes', () => {
+    const str = '𠜎';
+    const expected = new Uint8Array([240, 160, 156, 142]);
+    expect(utf8ToBytes(str)).toEqual(expected);
+  });
+
+  it('should throw an error if the input is not a string', () => {
+    // @ts-expect-error testing incorrect type
+    expect(() => utf8ToBytes(123)).toThrow('utf8ToBytes expected string, got number');
+  });
+
+  it('should handle an empty string', () => {
+    const str = '';
+    const expected = new Uint8Array([]);
+    expect(utf8ToBytes(str)).toEqual(expected);
   });
 });
